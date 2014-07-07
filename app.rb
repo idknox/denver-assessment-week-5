@@ -21,7 +21,11 @@ class ContactsApp < Sinatra::Base
   end
 
   get "/" do
-    erb :loggedout
+    if session[:id]
+      erb :loggedin, :locals => {:cur_user => @user_database.find(session[:id])[:username], :contacts => @contact_database.find_for_user(session[:id])}
+    else
+      erb :loggedout
+    end
   end
 
   get "/login" do
@@ -29,10 +33,16 @@ class ContactsApp < Sinatra::Base
   end
 
   post "/" do
+
     session[:id] = get_id(params[:username])
-    erb :loggedin, :locals => {:cur_user => params[:username], :contacts => @contact_database.find_for_user(session[:id])}
+    redirect "/"
+    # erb :loggedin, :locals => {:cur_user => params[:username], :contacts => @contact_database.find_for_user(session[:id])}
   end
 
+  get "/logout" do
+    session.delete(:id)
+    redirect "/"
+  end
   private
 
   def get_id(username)
