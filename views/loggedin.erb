@@ -1,9 +1,9 @@
 <h1>Welcome, <%= cur_user %></h1>
-<p>
+<ul>
 <% contacts.each do |contact| %>
-  Name: <%= contact[:name] + " Email: " + contact[:email] %>
+  <li>Name: <%= contact[:name] + ", Email: " + contact[:email] %></li>
     <% end %>
-</p>
+</ul>
 
 <form method="get" action="/logout">
   <input class="loginbutton" type="submit" value="Logout"/>

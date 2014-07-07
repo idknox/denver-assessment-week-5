@@ -36,13 +36,13 @@ class ContactsApp < Sinatra::Base
 
     session[:id] = get_id(params[:username])
     redirect "/"
-    # erb :loggedin, :locals => {:cur_user => params[:username], :contacts => @contact_database.find_for_user(session[:id])}
   end
 
   get "/logout" do
     session.delete(:id)
     redirect "/"
   end
+
   private
 
   def get_id(username)
