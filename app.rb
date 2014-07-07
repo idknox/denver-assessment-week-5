@@ -29,7 +29,17 @@ class ContactsApp < Sinatra::Base
   end
 
   post "/" do
-    erb :loggedin, :locals => {:cur_user => params[:username]}
+    session[:id] = get_id(params[:username])
+    erb :loggedin, :locals => {:cur_user => params[:username], :contacts => @contact_database.find_for_user(session[:id])}
   end
-  
+
+  private
+
+  def get_id(username)
+    val_users = @user_database.all.select {|user| user[:username] == username}
+    if val_users != []
+      val_users[0][:id]
+    end
+  end
+
 end

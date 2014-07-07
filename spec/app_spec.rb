@@ -15,6 +15,9 @@ feature "Homepage" do
 
     click_button("Login")
     expect(page).to have_content "Welcome, Jeff"
-    expect(page).to_not have_content("Login")
+    expect(page).to_not have_button("Login")
+
+    expect(page).to have_content("Spencer", "spen@example.com")
+    expect(page).to_not have_content("Kirsten", "kirsten@example.com")
   end
 end
