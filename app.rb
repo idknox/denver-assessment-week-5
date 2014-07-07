@@ -21,7 +21,7 @@ class ContactsApp < Sinatra::Base
   end
 
   get "/" do
-    "Hello week 5"
+    erb :loggedout
   end
 
 end
